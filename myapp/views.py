@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from myceleryproject.celery import add
 from .tasks import sub
-
+from celery.result import AsyncResult
 
 
 # Create your views here.
@@ -14,15 +14,20 @@ from .tasks import sub
 #     print("result sub: ",result)
 #     return render(request=request, template_name='myapp/home.html')
 
-# Enqueue Task using apply_async()
 def index(request):
+    result = add.delay(10, 30)
+    return render(request=request, template_name='myapp/home.html', context={'result': result})
+
+
+# Enqueue Task using apply_async()
+def check_result(request, task_id):
     print("ok")
-    result = add.apply_async(args=[10, 20])
-    print("result sum: ",result)
-    print("doing somthing")
-    result = sub.apply_async(args=[50, 20])
-    print("result sub: ",result)
-    return render(request=request, template_name='myapp/home.html')
+    result = AsyncResult(task_id)
+    print('Ready: ', result.ready())
+    print('Successful: ', result.successful())
+    print('Failed: ', result.failed())
+
+    return render(request=request, template_name='myapp/result.html', context={'result': result})
 
 
 

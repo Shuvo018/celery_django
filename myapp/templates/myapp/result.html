@@ -13,7 +13,13 @@
             <li> <a href='{% url "contact" %}'> contact </a>  <li>
         </ul>
     </nav>
-    <h1>Home page</h1>
-    <h1> result: <a href="{% url "check" result.task_id %}"> check</a> </h1>
+    <h1>result page</h1>
+    {% if result %}
+    <h4>Task id: {{result.id}} </h4>
+    <h4>Task task_id: {{result.task_id}} </h4>
+    <h4>Task state: {{result.state}} </h4>
+    <h4>Task status: {{result.status}} </h4>
+    <h4>Task result: {{result.result}} </h4>
+    {% endif %}
 </body>
 </html>
