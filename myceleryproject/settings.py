@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -125,7 +126,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Celery Configuration Options
 CELERY_TIMEZONE = "Asia/Dhaka"
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'django-db'
 
 CELERY_WORKER_POOL = "threads"
 CELERY_WORKER_CONCURRENCY = 4
+
+
+CELERY_BEAT_SCHEDULE = {
+    'every-10-seconds':{
+        'task': 'myapp.tasks.clear_session_cache',
+        'schedule': 10, 
+        'args': ('11111', )
+    }
+    # Add more periodic tasks as needed
+}
