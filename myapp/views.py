@@ -5,14 +5,25 @@ from .tasks import sub
 
 
 # Create your views here.
+# def index(request):
+#     print("ok")
+#     result = add.delay(10, 30)
+#     print("result sum: ",result)
+#     print("doing somthing")
+#     result = sub.delay(40, 30)
+#     print("result sub: ",result)
+#     return render(request=request, template_name='myapp/home.html')
+
+# Enqueue Task using apply_async()
 def index(request):
     print("ok")
-    result = add.delay(10, 30)
+    result = add.apply_async(args=[10, 20])
     print("result sum: ",result)
     print("doing somthing")
-    result = sub.delay(40, 30)
+    result = sub.apply_async(args=[50, 20])
     print("result sub: ",result)
     return render(request=request, template_name='myapp/home.html')
+
 
 
 def about(request):
