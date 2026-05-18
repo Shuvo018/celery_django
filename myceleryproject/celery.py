@@ -38,11 +38,22 @@ def add(x, y):
 # }
 
 # Method 2 using timedelta
-app.conf.beat_schedule = {
-    'every-10-seconds':{
-        'task': 'myapp.tasks.clear_session_cache',
-        'schedule': timedelta(10), 
-        'args': ('11111', )
-    }
-}
+# app.conf.beat_schedule = {
+#     'every-10-seconds':{
+#         'task': 'myapp.tasks.clear_session_cache',
+#         'schedule': timedelta(10), 
+#         'args': ('11111', )
+#     }
+# }
 
+
+from celery.schedules import crontab
+
+app.conf.beat_schedule = {
+    # Executes every Monday morning at 7:30 a.m.
+    'add-every-monday-morning': {
+        'task': 'tasks.add',
+        'schedule': crontab(hour=1, minute=30, day_of_week=1),
+        'args': (16, 16),
+    },
+}
