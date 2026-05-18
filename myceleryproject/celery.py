@@ -1,7 +1,9 @@
 import os
 
 from celery import Celery
-from time import sleep
+from time import sleep, time
+from datetime import timedelta
+
 # Set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myceleryproject.settings')
 
@@ -26,10 +28,21 @@ def add(x, y):
 #     sleep(20)
 #     return x+y
 
-# @app.task(bind=True, ignore_result=True)
-# def debug_task(self):
+# Method 2
+# app.conf.beat_schedule = {
+#     'every-10-seconds':{
+#         'task': 'myapp.tasks.clear_session_cache',
+#         'schedule': 10, 
+#         'args': ('11111', )
+#     }
+# }
 
-#     print(f'Request: {self.request!r}')
+# Method 2 using timedelta
+app.conf.beat_schedule = {
+    'every-10-seconds':{
+        'task': 'myapp.tasks.clear_session_cache',
+        'schedule': timedelta(10), 
+        'args': ('11111', )
+    }
+}
 
-
-# run celery on windows: celery -A myceleryproject worker --pool=solo -l info

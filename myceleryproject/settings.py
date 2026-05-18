@@ -132,12 +132,12 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_WORKER_POOL = "threads"
 CELERY_WORKER_CONCURRENCY = 4
 
-
-CELERY_BEAT_SCHEDULE = {
-    'every-10-seconds':{
-        'task': 'myapp.tasks.clear_session_cache',
-        'schedule': 10, 
-        'args': ('11111', )
-    }
-    # Add more periodic tasks as needed
-}
+# Method 1
+# CELERY_BEAT_SCHEDULE = {
+#     'every-10-seconds':{
+#         'task': 'myapp.tasks.clear_session_cache',
+#         'schedule': 10, 
+#         'args': ('11111', )
+#     }
+#     # Add more periodic tasks as needed
+# }
