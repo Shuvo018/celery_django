@@ -110,7 +110,6 @@ pip install django-celery-beat
 # 2. Add the django_celery_beat module to INSTALLED_APPS in your Django project’ settings.py:
 
     INSTALLED_APPS = (
-    INSTALLED_APPS = (
         ...,
         'django_celery_beat',
     )
@@ -141,13 +140,17 @@ CELERY_BROKER_URL = 'redis://localhost:6379/0'
 # Where task results are stored
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
-# Serialization format for tasks and results
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
 
 # Timezone — should match Django's TIME_ZONE
 CELERY_TIMEZONE = 'Asia/Dhaka'
+
+# For windows
+CELERY_WORKER_POOL = "threads"
+CELERY_WORKER_CONCURRENCY = 4
+
+# Beat scheduler
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
 ```
 
 And in `myceleryproject/celery.py`, the app is wired up like this:
