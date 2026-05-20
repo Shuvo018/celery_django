@@ -46,14 +46,6 @@ sudo apt-get install redis-server
 sudo service redis-server start
 ```
 
-**macOS (Homebrew):**
-```bash
-brew install redis
-brew services start redis
-```
-
-**Windows:** Use [Redis for Windows](https://github.com/tporadowski/redis/releases) or run via WSL.
-
 ### 2. Clone the Repository
 
 ```bash
