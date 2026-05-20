@@ -3,6 +3,13 @@
 A hands-on Django project demonstrating how to integrate **Celery** for asynchronous task processing and periodic scheduling using **Redis** as the message broker.
 
 ---
+**Resource:**
+
+https://docs.celeryq.dev/en/4.0/userguide/periodic-tasks.html
+
+https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html
+
+---
 
 ## 📌 What is Celery and Why Do We Need It?
 
@@ -93,6 +100,25 @@ celery -A myceleryproject worker --loglevel=info
 ```
 
 ### 8. Start Celery Beat (for scheduled tasks)
+
+Using custom scheduler classes:
+
+```bash
+# 1. Use pip to install the package:
+pip install django-celery-beat
+
+# 2. Add the django_celery_beat module to INSTALLED_APPS in your Django project’ settings.py:
+
+    INSTALLED_APPS = (
+    INSTALLED_APPS = (
+        ...,
+        'django_celery_beat',
+    )
+# 3. Apply Django database migrations so that the necessary tables are created:
+
+python manage.py migrate
+
+```
 
 Open another **new terminal** and run:
 
